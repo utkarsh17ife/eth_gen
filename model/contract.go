@@ -7,21 +7,7 @@ import (
 
 type Contract struct {
 	ContractName string `json:"contractName"`
-	Abi          []struct {
-		Constant bool `json:"constant,omitempty"`
-		Inputs   []struct {
-			Name string `json:"name"`
-			Type string `json:"type"`
-		} `json:"inputs"`
-		Name    string `json:"name,omitempty"`
-		Outputs []struct {
-			Name string `json:"name"`
-			Type string `json:"type"`
-		} `json:"outputs,omitempty"`
-		Payable         bool   `json:"payable"`
-		StateMutability string `json:"stateMutability"`
-		Type            string `json:"type"`
-	} `json:"abi"`
+	AbiArr       []Abi  `json:"abi"`
 }
 
 func ContractFromBytes(b []byte) *Contract {
@@ -29,4 +15,8 @@ func ContractFromBytes(b []byte) *Contract {
 	json.Unmarshal(b, &contract)
 	fmt.Println(contract)
 	return contract
+}
+
+func (c *Contract) GetName() string {
+	return c.ContractName
 }
